@@ -1,0 +1,28 @@
+# Data manipulation
+pandas
+numpy
+pyarrow
+
+# Web scraping / HTTP
+requests
+beautifulsoup4
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Machine Learning
+scikit-learn
+shap
+
+# Forecasting
+statsmodels
+prophet
+
+# Notebooks
+jupyter
+ipykernel
+
+# Utilities
+python-dotenv
