@@ -52,6 +52,19 @@ data/raw/demanda_real_combined.parquet
 - `importacion_mwh` e `intercambio_mwh` tienen ~40% de nulos — columnas introducidas por CENACE después de 2018, no disponibles en registros anteriores. Se descartan del análisis.
 - `exportacion_total_mwh` tiene ~11% de nulos por el mismo motivo.
 
+### ⚠️ Quiebre estructural 2020 — Reclasificación de áreas de control
+
+La serie de `demanda_balance_mwh` del área **CEN** presenta un salto abrupto alrededor de enero–febrero de 2020, donde el valor promedio prácticamente se duplica respecto al periodo 2016–2019.
+
+Se realizaron dos verificaciones (documentadas en `notebooks/01_EDA_clima.ipynb`, sección 3) para descartar que este salto fuera un crecimiento real de la demanda:
+
+1. **Registros por día:** los registros diarios del área CEN aumentan ~26% entre 2019 y 2020, lo cual indica que más fuentes/nodos comenzaron a reportar bajo el código CEN a partir de 2020 (no es solo un aumento de consumo, también de cobertura de reporte).
+2. **Balance entre áreas:** en 2020, la demanda promedio de CEN sube en una magnitud similar a la que baja NES, mientras OCC también incrementa ligeramente — un patrón "espejo" característico de una reclasificación territorial entre áreas de control.
+
+**Conclusión:** el salto es consistente con una **reconfiguración administrativa de áreas de control de CENACE** (posiblemente ligada a la reestructuración operativa derivada de la reforma energética), no con un crecimiento real del consumo al doble. No se encontró documentación oficial de CENACE/SENER que confirme explícitamente este cambio.
+
+**Implicación metodológica:** para el modelado, la serie de demanda CEN se segmentará en dos periodos — **2016–2019** (área CEN original) y **2020–2024** (área CEN ampliada) — ya que los niveles absolutos no son directamente comparables entre ambos. Los patrones relativos (estacionalidad, perfiles horarios, correlaciones con clima) sí se mantienen válidos en ambos periodos.
+
 ---
 
 ## 2. Clima ZMVM — Open-Meteo
